@@ -1,0 +1,54 @@
+# Servival Duration Calculator
+
+import re  # Import the regular expression module
+
+def calculate_duration(age, time_unit):
+    """
+    Calculate the duration of how long a person has lived.
+
+    Parameters:
+        age (int): Age of the person.
+        time_unit (str): Time unit for the output ('months', 'weeks', 'days', 'hours', 'minutes', 'seconds').
+
+    Returns:
+        int: Duration in the specified time unit.
+    """
+    # Use regex to check if age is a positive integer
+    if not re.match("^[1-9][0-9]*$", str(age)):
+        raise ValueError("Invalid age. Please enter a valid age as a positive integer.")
+
+    # Use regex to check if time_unit is a valid option
+    valid_time_units = ['months', 'weeks', 'days', 'hours', 'minutes', 'seconds']
+    if time_unit not in valid_time_units:
+        raise ValueError(f"Invalid time unit. Please choose from {', '.join(valid_time_units)}.")
+
+    # Calculate duration based on the input
+    if time_unit == 'months':
+        return age * 12
+    elif time_unit == 'weeks':
+        return age * 52
+    elif time_unit == 'days':
+        return age * 365
+    elif time_unit == 'hours':
+        return age * 365 * 24
+    elif time_unit == 'minutes':
+        return age * 365 * 24 * 60
+    elif time_unit == 'seconds':
+        return age * 365 * 24 * 60 * 60
+
+def main():
+    """
+    Main function to take user input and display the result.
+    """
+    try:
+        age = int(input("Enter the age of the person: "))
+        time_unit = input("Enter the desired time unit ('months', 'weeks', 'days', 'hours', 'minutes', 'seconds'): ")
+
+        duration = calculate_duration(age, time_unit)
+        print(f"The person has lived for {duration} {time_unit}.")
+
+    except ValueError as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    main()
